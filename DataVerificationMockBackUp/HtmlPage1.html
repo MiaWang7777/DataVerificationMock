@@ -1,0 +1,472 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="font-awesome.min.css" />
+    <title>Data verification</title>
+    <style>
+        mark {
+            background-color: yellow;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">CF Smart Report</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Report</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">MyDocuments</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Data Verification<span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <form class="form-control" id="frm-project">
+            <div class="well">
+                <div class="form-group row">
+                    <label for="sel1" class="col-sm-4">Please choose your program:</label>
+                    <div class="col-sm-8">
+                        <select id="sel1" class="form-control form-control-sm">
+                            <option>--------Please select a program--------</option>
+                            <option>Program #1</option>
+                            <option>Program #2</option>
+                            <option>Program #3</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="result-table" class="form-control">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Project Name</th>
+                                <th>Due Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Death Verification 2016</td>
+                                <td>05/30/2018</td>
+                                <td>In Progress</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary btn-sm btn-verify">Verify Data</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Death Verification 2017</td>
+                                <td>05/30/2017</td>
+                                <td>Completed</td>
+                                <td>
+                                    <button type="button" class="btn btn-default btn-sm btn-verify">View Data</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+
+        <form id="frm-verify" class="form-control">
+            <div class="well">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h5>Verify All Incomplete Records</h5>
+                        <h6>Please verify all data under the highlighted columns.</h6>
+
+                    </div>
+                    <div class="col-sm-6">
+                        <button type="button" class="btn btn-default" id="btn-verifyall" style="float: right;">Verify all</button>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-striped table-hover" id="tbl-verify">
+                            <thead>
+                                <tr>
+                                    <th>Last Name</th>
+                                    <th>First Name</th>
+                                    <th>CFF ID</th>
+                                    <th><mark>Death Date</mark></th>
+                                    <th><mark>Death Reason</mark></th>
+                                    <th>Status</th>
+                                    <!--<th class=" corrected-data">Corrected Data</th>-->
+                                    <th>Comments</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Smith</td>
+                                    <td>Joe</td>
+                                    <td>123456</td>
+                                    <td>
+                                        <span><strong>01/01/2017</strong></span>
+                                        <br />
+                                        <input type="text" class="form-control form-control-sm correct-box" placeholder="Enter corrected value" />
+                                    </td>
+                                    <td>
+                                        <span><strong>Drowning</strong></span>
+                                        <br />
+                                        <input type="text" class="form-control form-control-sm correct-box" placeholder="Enter corrected value" />
+                                    </td>
+                                    <td>
+                                        <select id="status" class="form-control form-control-sm ddl-status">
+                                            <option value="0">Valid</option>
+                                            <option value="1">Incomplete</option>
+                                            <option value="2" selected>Change Needed</option>
+                                            <option value="3">Need to Remove</option>
+                                        </select>
+                                    </td>
+                                    <!--<td>
+                                        <textarea  class="form-control form-control-sm corrected-data" rows="2">[01/01/2017][Drowning]</textarea>
+                                    </td>-->
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Jones</td>
+                                    <td>Sally</td>
+                                    <td>654321</td>
+                                    <td>
+                                        <strong>12/04/2017</strong>
+                                        <br />
+                                        <input type="text" class="form-control form-control-sm correct-box" placeholder="Enter corrected value" />
+                                    </td>
+                                    <td>
+                                        <strong>Stubbed toe</strong>
+                                        <br />
+                                        <input type="text" class="form-control form-control-sm correct-box" placeholder="Enter corrected value" />
+                                    </td>
+                                    <td>
+                                        <select id="status" class="form-control form-control-sm ddl-status">
+                                            <option value="0" selected>Valid</option>
+                                            <option value="1">Incomplete</option>
+                                            <option value="2">Change Needed</option>
+                                            <option value="3">Need to Remove</option>
+                                        </select>
+                                    </td>
+
+                                    <!--<td>
+                                        <textarea class="form-control form-control-sm corrected-data" value=""  rows="2"></textarea>
+                                    </td>-->
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Ted</td>
+                                    <td>Ed</td>
+                                    <td>111111</td>
+                                    <td>
+                                        <!--<input type="text" class="form-control form-control-sm" value="03/01/2017" readonly/>-->
+                                        <strong>03/01/2017</strong>
+                                        <br />
+                                        <input type="text" class="form-control form-control-sm correct-box" placeholder="Enter corrected value" />
+                                    </td>
+                                    <td>
+                                        <!--<input type="text" class="form-control form-control-sm" value="Poison" readonly/>-->
+                                        <strong>Poison</strong>
+                                        <br />
+                                        <input type="text" class="form-control form-control-sm correct-box" placeholder="Enter corrected value" />
+                                    </td>
+                                    <td>
+                                        <select id="status" class="form-control form-control-sm ddl-status">
+                                            <option value="0">Valid</option>
+                                            <option value="1" selected>Incomplete</option>
+                                            <option value="2">Change Needed</option>
+                                            <option value="3">Need to Remove</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Harry</td>
+                                    <td>Potter</td>
+                                    <td>3333333</td>
+                                    <td>
+                                        <!--<input type="text" class="form-control form-control-sm" value="03/01/2017" readonly/>-->
+                                        <strong>03/01/2017</strong>
+                                        <br />
+                                        <input type="text" class="form-control form-control-sm correct-box" placeholder="Enter corrected value" />
+                                    </td>
+                                    <td>
+                                        <!--<input type="text" class="form-control form-control-sm" value="Poison" readonly/>-->
+                                        <strong>Poison</strong>
+                                        <br />
+                                        <input type="text" class="form-control form-control-sm correct-box" placeholder="Enter corrected value" />
+                                    </td>
+                                    <td>
+                                        <select id="status" class="form-control form-control-sm ddl-status">
+                                            <option value="0">Valid</option>
+                                            <option value="1" selected>Incomplete</option>
+                                            <option value="2">Change Needed</option>
+                                            <option value="3">Need to Remove</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button type="button" class="btn btn-primary" id="btn-add">Add Patient</button>
+
+                    </div>
+
+                </div>
+                <div id="alert_placeholder"></div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-striped table-hover" id="tbl-new">
+                            <thead>
+                                <tr>
+                                    <th>Last Name</th>
+                                    <th>First Name</th>
+                                    <th>CFF ID</th>
+                                    <th>Death Date</th>
+                                    <th>Death Reason</th>
+                                    <th>Comments</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody id="add-row">
+                                <tr>
+                                    <td>
+                                        <input type='text' class='form-control form-control-sm txt-newpatient' value="Jane" />
+                                    </td>
+                                    <td>
+                                        <input type='text' class='form-control form-control-sm txt-newpatient' value="Lee" />
+                                    </td>
+                                    <td>
+                                        <input type='text' class='form-control form-control-sm txt-newpatient' value="2345678" />
+                                    </td>
+                                    <td>
+                                        <input type='text' class='form-control form-control-sm txt-newpatient' value="01/02/2017" />
+                                    </td>
+                                    <td>
+                                        <input type='text' class='form-control form-control-sm txt-newpatient' value="Poison" />
+                                    </td>
+                                    <td>
+                                        <input type='text' class='form-control form-control-sm txt-newpatient' value="Jane" />
+                                    </td>
+                                    <td><button type='button' class='btn btn-default btn-sm' id='btn-delete'>Delete</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1"><strong>Comment:</strong></label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+
+                        <button type="button" class="btn btn-default btn-sm" id="btn-cancel">Cancel</button>
+                        <button type="button" class="btn btn-default btn-sm" id="btn-save">Save</button>
+                        <button type="button" class="btn btn-primary btn-sm" id="btn-complete">Save and Complete</button>
+                    </div>
+                </div>
+
+
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal -->
+    <div id="deleteModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#result-table").hide();
+            $("#frm-verify").hide();
+            $("#tbl-new").hide();
+            $("#sel1").change(function () {
+                $("#result-table").show("true");
+            });
+            $(".btn-verify").click(function () {
+                $("#frm-verify").show("true");
+                $("#frm-project").hide();
+
+            });
+            $("#btn-cancel").click(function () {
+                window.location.reload();
+            });
+            if ($("#add-row").children().length != 0)
+            {
+                $("#tbl-new").show("true");
+            }
+            $("#btn-add").click(function () {
+                $("#tbl-new").show("true");
+                var disable = false;
+                $(".row-newpatient").each(function () {
+                    var textbox = $(this).find("input:text,select");
+
+                    var empty = textbox.filter(function () {
+                        return $.trim($(this).val()) == '';
+                    });
+                    if (empty.length == textbox.length) {
+
+                        disable = true;
+
+                    }
+
+                });
+                if (!disable) {
+
+                    var markup = "<tr class='row-newpatient'>";
+                    for (var i = 0; i < 6; i++) {
+                        markup += "<td><input type= 'text' class='form-control form-control-sm txt-newpatient'/></td>"
+                    }
+                    markup += "<td><button type='button' class='btn btn-default btn-sm' id='btn-delete'>Delete</button></td></tr>";
+
+                    $("#add-row").append(markup);
+                    $("#alert_placeholder").hide();
+                }
+                else
+                {
+                    $("#btn-add").prop("disabled", true);
+                    $("#alert_placeholder").show();
+                    $("#alert_placeholder").html(" <div class='alert alert-warning' role='alert' id='alert-addpatient'> Please enter information for all new added patients.</div>")
+                }
+
+            });
+
+
+            $("#btn-verifyall").click(function () {
+                $('.ddl-status').each(function () {
+                    var val = $(this).val();
+                    if (val === "1") {
+                        $(this).val("0");
+                    }
+                });
+            });
+            $('.ddl-status').each(function () {
+                var val = $(this).val();
+                if (val === "2") {
+                    $(this).closest('tr').find('.correct-box').show("true");
+                }
+                else {
+                    $(this).closest('tr').find('.correct-box').hide();
+                }
+            });
+            $(".ddl-status").change(function () {
+                var row = $(this).closest('tr');
+                var boxes = row.find('.correct-box');
+                switch ($(this).val()) {
+                    case "0":
+                        boxes.val('');
+                        boxes.hide();
+
+                        break;
+                    case "1":
+                        boxes.val('');
+                        boxes.hide();
+                        break;
+                    case "2":
+                        boxes.show("true");
+                        break;
+
+                }
+            });
+
+        });
+
+        $(document).on("change", ".txt-newpatient", function () {
+            var disable = false;
+            checkAllNewPatients();
+        });
+
+        //Remove button
+        $(document).on('click', '#btn-delete', function () {
+            $('#deleteModal').modal('show');
+            $(this).closest('tr').remove();
+            if ($(".row-newpatient").length == 0)
+            {
+                $("#btn-add").prop("disabled", false);
+            }
+            checkAllNewPatients();
+            return false;
+        });
+        function checkAllNewPatients() {
+            var disable = false;
+            $(".row-newpatient").each(function () {
+                var textbox = $(this).find("input:text,select");
+
+                var empty = textbox.filter(function () {
+                    return $.trim($(this).val()) == '';
+                });
+                if (empty.length == textbox.length) {
+                    disable = true;
+                }
+            });
+            if (disable) {
+                $("#btn-add").prop("disabled", true);
+                $("#alert_placeholder").show();
+            }
+            else {
+                $("#btn-add").prop("disabled", false);
+                $("#alert_placeholder").hide();
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
